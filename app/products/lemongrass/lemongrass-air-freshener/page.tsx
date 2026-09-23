@@ -1,0 +1,121 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import Image from "next/image";
+import { Home, Wind, Car, Droplet, ShieldAlert, Info } from "lucide-react";
+import ProductBuyBox from "@/components/ProductBuyBox";
+
+export const metadata: Metadata = {
+  title: "Lemongrass Room & Fabric Air Freshener",
+  description:
+    "Natural Lemongrass Air Freshener spray, concentrated hydrosol blend. Available in 50ml & 100ml.",
+};
+
+const uses = [
+  { icon: Home, text: "Rooms" },
+  { icon: Wind, text: "Curtains and fabric" },
+  { icon: Car, text: "Cars" },
+];
+
+export default function LemongrassAirFreshenerPage() {
+  return (
+    <section className="mx-auto max-w-7xl px-6 py-12 lg:px-8 lg:py-16">
+      <nav aria-label="Breadcrumb" className="font-body text-sm text-ink/55">
+        <Link href="/products" className="hover:text-forest">
+          Products
+        </Link>
+        <span className="mx-2">/</span>
+        <Link href="/products/lemongrass" className="hover:text-forest">
+          Lemongrass
+        </Link>
+        <span className="mx-2">/</span>
+        <span className="text-forest">Air Freshener</span>
+      </nav>
+
+      <div className="mt-8 grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-16">
+        {/* Image */}
+        <div className="relative">
+          <div className="absolute -inset-6 -z-10 rounded-full bg-gold/10 blur-2xl" />
+          <div className="overflow-hidden rounded-sm border border-forest/10 shadow-xl shadow-forest/10">
+            <Image
+              src="/products/lemongrass-air-freshener.png"
+              alt="VG Naturals Lemongrass Air Freshener spray bottle with fresh lemongrass"
+              width={1200}
+              height={1200}
+              className="h-full w-full object-cover"
+              priority
+            />
+          </div>
+        </div>
+
+        {/* Details */}
+        <div>
+          <div className="flex items-center gap-2 font-body text-sm font-medium text-gold">
+            <Droplet className="h-4 w-4" strokeWidth={1.5} />
+            Water-based · No alcohol
+          </div>
+          <h1 className="mt-3 font-display text-3xl leading-[1.15] text-forest sm:text-4xl">
+            Lemongrass Air Freshener — Concentrated Room &amp; Fabric Spray
+          </h1>
+          <p className="mt-5 font-body text-lg text-ink/75">
+            A stronger-concentration Lemongrass Hydrosol blend, 100% water-based
+            (no alcohol), for a longer-lasting fragrance throw than the regular
+            hydrosol.
+          </p>
+
+          <div className="mt-8">
+            <ProductBuyBox
+              productName="Lemongrass Air Freshener"
+              price50ml={250}
+              price100ml={300}
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Uses + notes */}
+      <div className="mt-16 grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-16">
+        <div>
+          <h2 className="font-display text-2xl text-forest">Where to use it</h2>
+          <ul className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
+            {uses.map((use) => (
+              <li
+                key={use.text}
+                className="flex items-start gap-3 rounded-sm border border-forest/10 bg-white p-4"
+              >
+                <use.icon className="h-5 w-5 shrink-0 text-gold" strokeWidth={1.5} />
+                <span className="font-body text-sm text-ink/75">{use.text}</span>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-4 font-body text-sm text-ink/60">
+            Not intended for skin application or ingestion.
+          </p>
+        </div>
+
+        <div className="flex flex-col gap-4">
+          {/* Use label */}
+          <div className="flex items-start gap-3 rounded-sm border border-gold/40 bg-gold/10 p-5">
+            <ShieldAlert className="h-5 w-5 shrink-0 text-gold-dark" strokeWidth={1.75} />
+            <div>
+              <p className="font-body text-sm font-semibold text-forest">
+                For Room &amp; Fabric Use Only
+              </p>
+              <p className="mt-1 font-body text-sm text-ink/70">
+                Avoid contact with eyes. Keep out of reach of children.
+              </p>
+            </div>
+          </div>
+
+          {/* Pending lab confirmation note */}
+          <div className="flex items-start gap-3 rounded-sm border border-forest/20 bg-cream p-5">
+            <Info className="h-5 w-5 shrink-0 text-forest" strokeWidth={1.75} />
+            <p className="font-body text-sm text-ink/70">
+              [Shelf life &amp; preservative details — pending lab confirmation
+              before publishing]
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
