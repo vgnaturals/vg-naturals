@@ -2,11 +2,11 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ChevronDown, Menu, X, Leaf } from "lucide-react";
-import { productCategories } from "@/lib/site-data";
+import Image from "next/image";
+import { ChevronDown, Menu, X } from "lucide-react";
+import { botanicalCategories, getProductsByBotanical, company } from "@/lib/site-data";
 
 const primaryLinks = [
-  { name: "About", href: "/about" },
   { name: "Industries", href: "/industries" },
   { name: "Bulk Supply", href: "/bulk-supply" },
   { name: "Blog", href: "/blog" },
@@ -16,70 +16,74 @@ const primaryLinks = [
 export default function Navbar() {
   const [productsOpen, setProductsOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 border-b border-forest/10 bg-ivory/95 backdrop-blur supports-[backdrop-filter]:bg-ivory/80">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3 lg:px-8">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2">
-          <Leaf className="h-6 w-6 text-gold" strokeWidth={1.75} />
-          <span className="font-display text-xl italic text-forest">
-            VG Naturals
+        <Link href="/" className="flex items-center gap-3" aria-label="VG Naturals — home">
+          <Image
+            src="/logo.png"
+            alt="VG Naturals Pvt Ltd logo"
+            width={52}
+            height={52}
+            className="h-11 w-11 object-contain"
+            priority
+          />
+          <span className="flex flex-col leading-tight">
+            <span className="font-display text-lg text-forest">{company.headerName}</span>
+            <span className="font-body text-[11px] tracking-wide text-ink/55">
+              {company.tagline}
+            </span>
           </span>
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden items-center gap-8 lg:flex">
+        <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary">
+          <Link href="/" className="font-body text-[15px] text-ink hover:text-forest">
+            Home
+          </Link>
+
           {/* Products dropdown */}
           <div
             className="relative"
             onMouseEnter={() => setProductsOpen(true)}
             onMouseLeave={() => setProductsOpen(false)}
           >
-            <button
+            <Link
+              href="/products"
               className="flex items-center gap-1 font-body text-[15px] text-ink hover:text-forest"
               aria-expanded={productsOpen}
               aria-haspopup="true"
             >
               Products
               <ChevronDown className="h-4 w-4" strokeWidth={1.75} />
-            </button>
+            </Link>
 
             {productsOpen && (
-              <div className="absolute left-1/2 top-full w-[560px] -translate-x-1/2 pt-3">
-                <div className="grid grid-cols-2 gap-x-8 gap-y-6 rounded-sm border border-forest/10 bg-white p-6 shadow-lg shadow-forest/5">
-                  {productCategories.map((cat) => (
-                    <div key={cat.name}>
+              <div className="absolute left-1/2 top-full w-[520px] -translate-x-1/2 pt-3">
+                <div className="grid grid-cols-2 gap-x-8 gap-y-2 rounded-sm border border-forest/10 bg-white p-6 shadow-lg shadow-forest/5">
+                  {botanicalCategories.map((cat) => (
+                    <div key={cat.key}>
                       <Link
                         href={cat.href}
                         className="font-display text-base text-forest hover:text-gold"
                       >
                         {cat.name}
-                        {cat.status === "coming-soon" && (
-                          <span className="ml-2 align-middle text-xs font-body font-normal text-ink/50">
-                            coming soon
-                          </span>
-                        )}
                       </Link>
-                      {cat.items.length > 0 && (
-                        <ul className="mt-2 space-y-1.5">
-                          {cat.items.map((item) => (
-                            <li key={item.href}>
-                              <Link
-                                href={item.href}
-                                className="text-sm text-ink/70 hover:text-forest"
-                              >
-                                {item.name}
-                                {item.status === "coming-soon" && (
-                                  <span className="ml-1.5 text-xs text-ink/40">
-                                    (soon)
-                                  </span>
-                                )}
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
-                      )}
+                      <ul className="mt-2 space-y-1.5">
+                        {getProductsByBotanical(cat.key).map((item) => (
+                          <li key={item.slug}>
+                            <Link
+                              href={item.href}
+                              className="font-body text-sm text-ink/70 hover:text-forest"
+                            >
+                              {item.shortName}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
                   ))}
                 </div>
@@ -98,13 +102,9 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* CTA — bulk quote is the primary business goal, so it gets the
-            visually dominant treatment; catalogue is the secondary action. */}
+        {/* CTA */}
         <div className="hidden items-center gap-3 lg:flex">
-          <Link
-            href="/catalogue"
-            className="font-body text-[15px] text-ink hover:text-forest"
-          >
+          <Link href="/catalogue" className="font-body text-[15px] text-ink hover:text-forest">
             Catalogue
           </Link>
           <Link
@@ -132,44 +132,102 @@ export default function Navbar() {
 
       {/* Mobile nav panel */}
       {mobileOpen && (
-        <div className="border-t border-forest/10 bg-ivory px-6 py-6 lg:hidden">
-          <p className="mb-2 font-display text-sm text-forest">Products</p>
-          <ul className="mb-6 space-y-2 pl-2">
-            {productCategories.map((cat) => (
-              <li key={cat.name}>
-                <Link
-                  href={cat.href}
-                  className="text-ink/80"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  {cat.name}
-                  {cat.status === "coming-soon" && (
-                    <span className="ml-2 text-xs text-ink/40">
-                      coming soon
-                    </span>
-                  )}
-                </Link>
-              </li>
-            ))}
-          </ul>
+        <div className="max-h-[calc(100vh-4rem)] overflow-y-auto border-t border-forest/10 bg-ivory px-6 py-6 lg:hidden">
+          <ul className="space-y-1">
+            <li>
+              <Link
+                href="/"
+                className="block py-2 font-body text-ink"
+                onClick={() => setMobileOpen(false)}
+              >
+                Home
+              </Link>
+            </li>
 
-          <ul className="space-y-3">
+            {/* Products accordion */}
+            <li>
+              <button
+                className="flex w-full items-center justify-between py-2 font-body text-ink"
+                onClick={() => setMobileProductsOpen(!mobileProductsOpen)}
+                aria-expanded={mobileProductsOpen}
+              >
+                Products
+                <ChevronDown
+                  className={`h-4 w-4 transition-transform ${mobileProductsOpen ? "rotate-180" : ""}`}
+                  strokeWidth={1.75}
+                />
+              </button>
+              {mobileProductsOpen && (
+                <div className="mb-2 space-y-4 border-l border-forest/15 pl-4">
+                  <Link
+                    href="/products"
+                    className="block font-body text-sm font-medium text-forest"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    All Products
+                  </Link>
+                  {botanicalCategories.map((cat) => (
+                    <div key={cat.key}>
+                      <Link
+                        href={cat.href}
+                        className="block font-display text-base text-forest"
+                        onClick={() => setMobileOpen(false)}
+                      >
+                        {cat.name}
+                      </Link>
+                      <ul className="mt-1.5 space-y-1.5">
+                        {getProductsByBotanical(cat.key).map((item) => (
+                          <li key={item.slug}>
+                            <Link
+                              href={item.href}
+                              className="block font-body text-sm text-ink/70"
+                              onClick={() => setMobileOpen(false)}
+                            >
+                              {item.shortName}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </li>
+
             {primaryLinks.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="font-body text-ink"
+                  className="block py-2 font-body text-ink"
                   onClick={() => setMobileOpen(false)}
                 >
                   {link.name}
                 </Link>
               </li>
             ))}
+            <li>
+              <Link
+                href="/catalogue"
+                className="block py-2 font-body text-ink"
+                onClick={() => setMobileOpen(false)}
+              >
+                Catalogue
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/request-sample"
+                className="block py-2 font-body text-ink"
+                onClick={() => setMobileOpen(false)}
+              >
+                Request a Sample
+              </Link>
+            </li>
           </ul>
 
           <Link
             href="/request-quote"
-            className="mt-6 block rounded-sm bg-forest px-5 py-3 text-center font-body font-medium text-ivory"
+            className="mt-5 block rounded-sm bg-forest px-5 py-3 text-center font-body font-medium text-ivory"
             onClick={() => setMobileOpen(false)}
           >
             Request Bulk Quote
