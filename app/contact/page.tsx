@@ -67,7 +67,7 @@ export default function ContactPage() {
           </div>
 
           <p className="mt-6 font-body text-xs text-ink/45">
-            
+            <a
               href="https://www.google.com/maps/search/?api=1&query=1248+Royal+City+Phase+2%2C+Aurangabad+Jagir%2C+B+R+A+University%2C+Lucknow%2C+Uttar+Pradesh+226025"
               target="_blank"
               rel="noopener noreferrer"
