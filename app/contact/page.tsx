@@ -67,7 +67,14 @@ export default function ContactPage() {
           </div>
 
           <p className="mt-6 font-body text-xs text-ink/45">
-            [Google Business Profile link — add once confirmed]
+            
+              href="https://www.google.com/maps/search/?api=1&query=1248+Royal+City+Phase+2%2C+Aurangabad+Jagir%2C+B+R+A+University%2C+Lucknow%2C+Uttar+Pradesh+226025"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-forest underline hover:text-gold"
+            >
+              View on Google Maps →
+            </a>
           </p>
         </div>
 
@@ -76,6 +83,22 @@ export default function ContactPage() {
           <div className="mt-5">
             <EnquiryForm formType="general" />
           </div>
+        </div>
+      </section>
+
+      {/* Map — free, no API key required (output=embed works without billing) */}
+      <section className="mx-auto max-w-6xl px-6 pb-14 lg:px-8 lg:pb-20">
+        <div className="overflow-hidden rounded-sm border border-forest/15">
+          <iframe
+            src="https://www.google.com/maps?q=1248+Royal+City+Phase+2%2C+Aurangabad+Jagir%2C+B+R+A+University%2C+Lucknow%2C+Uttar+Pradesh+226025&output=embed"
+            width="100%"
+            height="350"
+            style={{ border: 0 }}
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            title="VG Naturals location on Google Maps"
+          />
         </div>
       </section>
     </>
