@@ -44,19 +44,19 @@ export default function ContactPage() {
           </ul>
 
           <div className="mt-8 flex flex-wrap gap-4">
-            <a
+            
               href={`tel:${company.phone}`}
               className="inline-flex items-center gap-2 rounded-sm border border-forest/30 px-5 py-2.5 font-body text-sm text-forest hover:bg-forest/5"
             >
               <Phone className="h-4 w-4" strokeWidth={1.75} /> Call
             </a>
-            <a
+            
               href={`mailto:${company.email}`}
               className="inline-flex items-center gap-2 rounded-sm border border-forest/30 px-5 py-2.5 font-body text-sm text-forest hover:bg-forest/5"
             >
               <Mail className="h-4 w-4" strokeWidth={1.75} /> Email
             </a>
-            <a
+            
               href={`https://wa.me/${company.whatsappNumber}`}
               target="_blank"
               rel="noopener noreferrer"
@@ -66,8 +66,8 @@ export default function ContactPage() {
             </a>
           </div>
 
-         <p className="mt-6 font-body text-xs text-ink/45">
-            <a
+          <p className="mt-6 font-body text-xs text-ink/45">
+            
               href="https://www.google.com/maps/search/?api=1&query=1248+Royal+City+Phase+2%2C+Aurangabad+Jagir%2C+B+R+A+University%2C+Lucknow%2C+Uttar+Pradesh+226025"
               target="_blank"
               rel="noopener noreferrer"
@@ -76,34 +76,6 @@ export default function ContactPage() {
               View on Google Maps →
             </a>
           </p>
-        </div>
-
-        <div className="rounded-sm border border-forest/15 bg-white p-6 lg:p-8">
-          <h2 className="font-display text-lg text-forest">Send a message</h2>
-          <div className="mt-5">
-            <EnquiryForm formType="general" />
-          </div>
-        </div>
-      </section>
-
-      {/* Map — free, no API key required */}
-      <section className="mx-auto max-w-6xl px-6 pb-14 lg:px-8 lg:pb-20">
-        <div className="overflow-hidden rounded-sm border border-forest/15">
-          <iframe
-            src="https://www.google.com/maps?q=1248+Royal+City+Phase+2%2C+Aurangabad+Jagir%2C+B+R+A+University%2C+Lucknow%2C+Uttar+Pradesh+226025&output=embed"
-            width="100%"
-            height="350"
-            style={{ border: 0 }}
-            allowFullScreen
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            title="VG Naturals location on Google Maps"
-          />
-        </div>
-      </section>
-    </>
-  );
-}
         </div>
 
         <div className="rounded-sm border border-forest/15 bg-white p-6 lg:p-8">
