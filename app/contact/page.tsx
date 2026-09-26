@@ -73,7 +73,7 @@ export default function ContactPage() {
               rel="noopener noreferrer"
               className="text-forest underline hover:text-gold"
             >
-              View on Google Maps ->
+              View on Google Maps
             </a>
           </p>
         </div>
