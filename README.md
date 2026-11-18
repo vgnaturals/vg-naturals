@@ -1,4 +1,6 @@
 # VG Naturals — Website (Batch 1: Layout, Navbar, Footer, Home)
+> **Historical development snapshot.** This repository contains an early website batch, not the current live website. The official website of **VG NATURALS PRIVATE LIMITED** is [vgnaturals.com](https://www.vgnaturals.com/). For current botanical product information and B2B enquiries, use the official website.
+
 
 Next.js 14 (App Router) + TypeScript + Tailwind CSS, built for Vercel.
 
